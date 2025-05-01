@@ -1,31 +1,30 @@
 return {
   "ibhagwan/fzf-lua",
-  dependencies = { "echasnovski/mini.icons" }, -- For icons in FZF
+  dependencies = { "echasnovski/mini.icons" },
   opts = {
     previewers = {
       builtin = {
         syntax_highlight = true,
       },
       bat = {
-        theme = "Dracula", -- or Gruvbox/Dark etc.
+        theme = "Dracula",
         args = "--style=numbers,changes --color=always",
       },
     },
     files = {
-      previewer = "bat"
+      previewer = "bat",
+      -- Include hidden files and ignore .git
+      fd_opts = "--color=never --type f --hidden --follow --exclude .git"
     },
     grep = {
       previewer = "bat"
     }
   },
   keys = {
-    -- Core
     { "<leader>ff", function() require("fzf-lua").files() end, desc = "󰍉 Find Files" },
     { "<leader>fg", function() require("fzf-lua").live_grep() end, desc = "󰱽 Live Grep in Project" },
     { "<leader>fn", function() require("fzf-lua").files({cwd = vim.fn.stdpath("config")}) end, desc = " Find Neovim Config Files" },
     { "<leader><leader>", function() require("fzf-lua").buffers() end, desc = " Open Buffers" },
-
-    -- Extras
     { "<leader>fh", function() require("fzf-lua").help_tags() end, desc = "󰋖 Help Tags" },
     { "<leader>fk", function() require("fzf-lua").keymaps() end, desc = "󰌌 Keymaps" },
     { "<leader>fb", function() require("fzf-lua").builtin() end, desc = " FZF Builtins" },
