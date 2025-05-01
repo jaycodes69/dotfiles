@@ -7,7 +7,6 @@ if [ -f "$PIDFILE" ]; then
     if kill -0 "$PID" 2>/dev/null; then
         kill "$PID"
         rm "$PIDFILE"
-        notify-send "Waybar" "Stopped"
         exit 0
     else
         rm "$PIDFILE"
@@ -17,5 +16,4 @@ fi
 # Launch Waybar and save its PID
 waybar &
 echo $! > "$PIDFILE"
-notify-send "Waybar" "Started"
 
