@@ -8,5 +8,5 @@ opacity = 1
 
 [general]
 import = [
-    "/home/jay/.config/alacritty/themes/themes/gruvbox_dark.toml"
+    "/home/jay/.config/alacritty/themes/themes/kanagawa_wave.toml"
 ]
