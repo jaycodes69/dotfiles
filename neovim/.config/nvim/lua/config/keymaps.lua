@@ -1,5 +1,8 @@
 vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open Parent Directory in OIL" })
 
+vim.keymap.set("n", "<leader>,", "<cmd>write<CR>", { desc = "[ , ] Write the File" })
+vim.keymap.set("n", "<leader>q", "<cmd>quit!<CR>", { desc = "[Q]uit the File" })
+
 vim.keymap.set("n", "gl", function()
 	vim.diagnostic.open_float()
 end, { desc = "Open Diagnostic in Float" })
@@ -9,3 +12,26 @@ vim.keymap.set("n", "<leader>cf", function()
 		lsp_format = "fallback",
 	})
 end, { desc = "Current buffer Format" })
+
+-- Neorg keymaps
+vim.keymap.set("n", "<leader>nl", "<Plug>(neorg.esupports.hop.hop-link)", { desc = "Neorg: Follow Link" })
+vim.keymap.set("n", "<leader>nt", "<cmd>Neorg toc<CR>", { desc = "Neorg: Table of Contents" })
+vim.keymap.set("n", "<leader>ni", "<cmd>Neorg index<CR>", { desc = "Neorg: Go to index" })
+vim.keymap.set("n", "<leader>nr", "<cmd>Neorg return<CR>", { desc = "Neorg: Return" })
+vim.keymap.set("n", "<leader>nj", "<cmd>Neorg journal<CR>", { desc = "Neorg: Journal" })
+
+--Toggle keymaps
+
+vim.keymap.set("n", "<leader>tg", function()
+	local wo = vim.wo
+
+	local toggle_state = not wo.number
+
+	-- Toggle number-related UI
+	wo.number = toggle_state
+	wo.relativenumber = toggle_state
+	wo.signcolumn = toggle_state and "yes" or "no"
+
+	-- Opposite toggle for wrap
+	wo.wrap = not toggle_state
+end, { desc = "Toggle line numbers, wrap (inverted), and gutter" })

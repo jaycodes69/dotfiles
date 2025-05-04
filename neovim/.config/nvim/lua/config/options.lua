@@ -17,6 +17,7 @@ vim.opt.updatetime = 250 -- Faster completion
 vim.opt.timeoutlen = 300 -- Time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.signcolumn = "yes" -- Always show the sign column
 vim.opt.confirm = true -- Confirm to save changes before exiting modified buffer
+vim.opt.swapfile = false -- No swapfile
 
 -- [[ Appearance ]]
 vim.opt.termguicolors = true -- Enable true color support
