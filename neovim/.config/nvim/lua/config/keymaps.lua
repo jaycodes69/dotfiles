@@ -35,3 +35,10 @@ vim.keymap.set("n", "<leader>tg", function()
 	-- Opposite toggle for wrap
 	wo.wrap = not toggle_state
 end, { desc = "Toggle line numbers, wrap (inverted), and gutter" })
+
+-- Navigation keymaps
+-- Fast Scrolling (horizontal + vertical)
+vim.keymap.set("n", "<C-h>", "10zh", { noremap = true, silent = true, desc = "Scroll Left (10 cols)" })
+vim.keymap.set("n", "<C-l>", "10zl", { noremap = true, silent = true, desc = "Scroll Right (10 cols)" })
+vim.keymap.set("n", "<C-j>", "10<C-e>", { noremap = true, silent = true, desc = "Scroll Down (10 lines)" })
+vim.keymap.set("n", "<C-k>", "10<C-y>", { noremap = true, silent = true, desc = "Scroll Up (10 lines)" })
