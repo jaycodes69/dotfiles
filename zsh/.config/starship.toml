@@ -1,0 +1,22 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Keep prompt single-line, no blank space after
+add_newline = false
+
+[character]
+success_symbol = "[>](green)"
+error_symbol = "[✗](red)"
+
+
+[directory]
+truncate_to_repo = true
+truncation_length = 3
+style = "blue bold"
+
+[git_branch]
+symbol = " "  # Git branch icon
+style = "purple"
+
+[git_status]
+style = "red"

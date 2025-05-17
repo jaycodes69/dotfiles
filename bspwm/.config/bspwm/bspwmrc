@@ -1,0 +1,19 @@
+#! /bin/sh
+
+pgrep -x sxhkd >/dev/null || sxhkd &
+picom --daemon --config ~/.config/picom.conf
+feh --bg-fill ~/dotfiles/wallpapers/dark-boy.jpg
+
+bspc monitor -d 1 2 3 4 5 6 7 8 9
+
+bspc config border_width 2
+bspc config window_gap 2
+
+bspc config split_ratio 0.50
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Screenkey manage=off
+bspc rule -a DropdownAlacritty state=floating sticky=on center=true follow=on rectangle=800x400+560+0

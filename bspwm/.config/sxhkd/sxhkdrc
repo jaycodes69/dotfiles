@@ -1,0 +1,149 @@
+########################################
+# 🖥️  TERMINALS & LAUNCHERS
+########################################
+
+# Main terminal: Kitty
+super + Return
+    kitty
+
+# Floating terminal: Alacritty (toggleable)
+alt + Return
+    bash ~/dotfiles/scripts/popup-terminal-alacritty.sh
+
+# App launcher (rofi drun)
+super + space
+    rofi -show drun
+
+# YouTube search prompt → play in mpv
+super + y
+    rofi -dmenu -p "YouTube Search:" | xargs -r yt-fzf.sh
+
+# Reload sxhkd config
+super + Escape
+    pkill -USR1 -x sxhkd
+
+
+########################################
+# 🧭 WINDOW FOCUS & SWAP (Vim-style)
+########################################
+
+# Focus in Vim directions (← ↓ ↑ →)
+super + {h,j,k,l}
+    bspc node -f {west,south,north,east}
+
+# Swap windows in Vim directions
+super + shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
+# Focus relatives (parent, brother, first, second)
+super + {p,b,comma,period}
+    bspc node -f @{parent,brother,first,second}
+
+# Cycle windows in stack
+super + {c,shift + c}
+    bspc node -f {next,prev}.local.!hidden.window
+
+# Focus last node / desktop
+super + {grave,Tab}
+    bspc {node,desktop} -f last
+
+# Focus previous / next desktop
+super + bracket{left,right}
+    bspc desktop -f {prev,next}.local
+
+# Navigate window history
+super + {o,i}
+    bspc wm -h off; bspc node {older,newer} -f; bspc wm -h on
+
+
+########################################
+# 🗂️  DESKTOP & LAYOUT CONTROL
+########################################
+
+# Toggle layout (tiled ↔ monocle)
+super + m
+    bspc desktop -l next
+
+# Set node state (tile, pseudo, float, fullscreen)
+super + {t,shift + t,s,f}
+    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# Set node flags (mark, lock, sticky, private)
+super + ctrl + {m,x,y,z}
+    bspc node -g {marked,locked,sticky,private}
+
+# Focus desktop {1-10}
+super + {1-9,0}
+    bspc desktop -f '^{1-9,10}'
+
+# Send node to desktop {1-10}
+super + shift + {1-9,0}
+    bspc node -d '^{1-9,10}'
+
+
+########################################
+# 🎯 PRESELECTIONS & RATIOS
+########################################
+
+# Preselect direction (Vim-style)
+super + ctrl + {h,j,k,l}
+    bspc node -p {west,south,north,east}
+
+# Preselect split ratio (0.1–0.9)
+super + ctrl + {1-9}
+    bspc node -o 0.{1-9}
+
+# Cancel preselection for focused node
+super + ctrl + space
+    bspc node -p cancel
+
+# Cancel all preselections on current desktop
+super + ctrl + shift + space
+    bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+
+########################################
+# 📐 WINDOW SIZING & MOVEMENT
+########################################
+
+# Resize outward (Alt + Vim keys)
+super + alt + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Resize inward (Alt + Shift + Vim keys)
+super + alt + shift + {h,j,k,l}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# Move floating window (arrows)
+super + {Left,Down,Up,Right}
+    bspc node -v {-20 0,0 20,0 -20,20 0}
+
+
+########################################
+# 🔥 BSPWM CORE COMMANDS
+########################################
+
+# Quit or restart bspwm
+super + alt + {q,r}
+    bspc {quit,wm -r}
+
+# Close node / Kill node
+super + {w,shift + w}
+    bspc node -{c,k}
+
+
+########################################
+# 📸 SCREENSHOTS (Flameshot)
+########################################
+
+# Interactive GUI screenshot
+Print
+    flameshot gui -p ~/Pictures
+
+# Interactive GUI w/ 3s delay
+shift + Print
+    flameshot gui --delay 3000 -p ~/Pictures
+
+# Fullscreen to clipboard + save
+ctrl + Print
+    flameshot full -c -p ~/Pictures

@@ -1,0 +1,116 @@
+# Alacritty Configuration File
+
+# ------------------------------
+# General Settings
+# ------------------------------
+
+[general]
+# Import additional configuration files (uncomment and edit as needed)
+# import = ["~/.config/alacritty/custom-settings.toml"]
+
+# Directory to start the terminal in (None means current working directory)
+working_directory = "None"
+
+# Enable live config reload (requires restart)
+live_config_reload = true
+
+# Enable IPC socket for UNIX systems (use `alacritty msg` for inter-process communication)
+ipc_socket = true
+
+# ------------------------------
+# Window Settings
+# ------------------------------
+
+[window]
+# Set window size (columns x lines). 0 means default, non-zero values set the size.
+dimensions = { columns = 100, lines = 30 }
+
+# Set the initial position of the window (None means window manager handles it)
+position = "None"
+
+# Enable dynamic padding to spread padding evenly around content
+dynamic_padding = true
+
+# Window decorations (Full: borders & title bar, None: no borders/title bar)
+decorations = "Full"
+
+# Window opacity (0.0 = transparent, 1.0 = opaque)
+opacity = 1.0
+# opacity = 0.3
+
+# ------------------------------
+# Font Settings
+# ------------------------------
+
+[font]
+# Normal font family and style (use JetBrainsMono Nerd Font or any desired font)
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
+
+# Font size in points
+size = 10.0
+
+# Adjust character spacing (x) and line spacing (y)
+offset = { x = 0, y = 0 }
+
+# Enable or disable built-in powerline and box drawing symbols
+builtin_box_drawing = true
+
+# ------------------------------
+# Scrolling Settings
+# ------------------------------
+
+[scrolling]
+# Maximum number of lines in scrollback buffer
+history = 10000
+
+# Multiplier for scrolling (number of lines scrolled per increment)
+multiplier = 3
+
+# ------------------------------
+# Keybindings (Optional, uncomment to add custom keybindings)
+# ------------------------------
+
+#[keybindings]
+# Example keybinding to open a new tab with Ctrl+Shift+T
+# - { key = "T", mods = "Ctrl|Shift", action = "NewTab" }
+
+# Kanagawa Wave Alacritty Colors
+
+[colors.primary]
+background = '#1f1f28'
+foreground = '#dcd7ba'
+
+[colors.normal]
+black = '#090618'
+red = '#c34043'
+green = '#76946a'
+yellow = '#c0a36e'
+blue = '#7e9cd8'
+magenta = '#957fb8'
+cyan = '#6a9589'
+white = '#c8c093'
+
+[colors.bright]
+black = '#727169'
+red = '#e82424'
+green = '#98bb6c'
+yellow = '#e6c384'
+blue = '#7fb4ca'
+magenta = '#938aa9'
+cyan = '#7aa89f'
+white = '#dcd7ba'
+
+[colors.selection]
+background = '#2d4f67'
+foreground = '#c8c093'
+
+[[colors.indexed_colors]]
+index = 16
+color = '#ffa066'
+
+[[colors.indexed_colors]]
+index = 17
+color = '#ff5d62'
