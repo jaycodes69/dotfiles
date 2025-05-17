@@ -1,0 +1,40 @@
+# Neovim
+nvim/.config/nvim/lazy-lock.json
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Zsh
+zsh/.config/zsh/.zcompdump
+zsh/.config/zsh/.zcompdump*
+zsh/.zsh_history
+zsh/.zsh_sessions
+
+# Alacritty / Kitty logs (if any)
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+
+# Git directories inside plugin folders
+**/.git
+
+# Ignore plugin dirs if added as full clones
+tmux/.config/tmux/plugins/*/
+!tmux/.config/tmux/plugins/.keep  # If you use a placeholder to keep the folder
+
+# Python/misc cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore machine-specific files
+*.lock
+*.pid
+
+# Misc
+*.tmp
+*.old
