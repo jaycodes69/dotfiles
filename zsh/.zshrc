@@ -13,6 +13,18 @@ source "$ZDOTDIR/starship.zsh"
 # Load local overrides (e.g., secrets or machine-specific config)
 [[ -f "$ZDOTDIR/local.zsh" ]] && source "$ZDOTDIR/local.zsh"
 
+# Detect if running inside tmux
+if [[ -n "$TMUX" ]]; then
+  # Adjust prompt for tmux status bar
+  export TERM="screen-256color"
+  
+  # Clipboard copy works with tmux-yank
+  alias copy='tmux save-buffer - | xclip -selection clipboard'
+
+  # Enable tmux-aware vi-mode or keybinds here if you want
+
+fi
+
 # Autostart tmux and prompt user
 if [ -z "$TMUX" ] && command -v tmux >/dev/null 2>&1; then
   echo -n "Start fresh [f] or restore previous session [r]? "
