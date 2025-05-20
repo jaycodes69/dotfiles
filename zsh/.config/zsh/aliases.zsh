@@ -24,6 +24,7 @@ alias grep='grep --color=auto'
 alias cl='clear'
 
 alias v='nvim'
+alias so='source ~/.zshrc '
 
 # Tmux session management
 alias ts='tmux ls'                        # List all sessions
