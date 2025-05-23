@@ -1,36 +1,34 @@
-# ~/.config/zsh/.zshrc (main entry)
+# ~/.config/zsh/.zshrc — main entry point
 
-# Use config directory as base for all Zsh configs
+# Use config dir as base (makes your $HOME clean)
 export ZDOTDIR="$HOME/.config/zsh"
 
-# Source each modular component
-source "$ZDOTDIR/options.zsh"
-source "$ZDOTDIR/exports.zsh"
-source "$ZDOTDIR/plugins.zsh"
-source "$ZDOTDIR/aliases.zsh"
-source "$ZDOTDIR/starship.zsh"
+# Load modular configs (order matters)
+source "$ZDOTDIR/exports.zsh"     # environment variables, PATH
+source "$ZDOTDIR/options.zsh"     # shell options, history settings
+source "$ZDOTDIR/plugins.zsh"     # plugin managers, plugin init
+source "$ZDOTDIR/aliases.zsh"     # custom aliases & functions
+source "$ZDOTDIR/starship.zsh"    # prompt (starship) config
 
-# Load local overrides (e.g., secrets or machine-specific config)
+# Local overrides for secrets or machine-specific tweaks
 [[ -f "$ZDOTDIR/local.zsh" ]] && source "$ZDOTDIR/local.zsh"
 
-# Detect if running inside tmux
+# Adjust terminal settings when inside tmux
 if [[ -n "$TMUX" ]]; then
-  # Adjust prompt for tmux status bar
-  export TERM="screen-256color"
-  
-  # Clipboard copy works with tmux-yank
+  export TERM="screen-256color"   # fixes colors and keybindings inside tmux
+
+  # Clipboard copy alias using tmux buffer (requires tmux-yank plugin)
   alias copy='tmux save-buffer - | xclip -selection clipboard'
 
-  # Enable tmux-aware vi-mode or keybinds here if you want
-
+  # (Optional) Enable tmux-aware vi-mode or keybinds here
 fi
 
-# Autostart tmux and prompt user
+# Interactive tmux session launcher
 if [ -z "$TMUX" ] && command -v tmux >/dev/null 2>&1; then
   echo -n "Start fresh [f] or restore previous session [r]? "
   read -r choice
   if [ "$choice" = "r" ]; then
-    tmux new-session \; run-shell '~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+    tmux new-session \; run-shell '~/.config/tmux/plugins/tmux-resurrect/scripts/restore.sh'
   else
     echo -n "Session name: "
     read -r session_name
