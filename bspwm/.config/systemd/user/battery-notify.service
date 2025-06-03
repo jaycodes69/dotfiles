@@ -1,0 +1,7 @@
+[Unit]
+Description=Notify when battery is low
+
+[Service]
+Type=oneshot
+ExecStart=/home/jay/dotfiles/scripts/bats.sh
+
