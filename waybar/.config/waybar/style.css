@@ -1,0 +1,141 @@
+/*
+ * Waybar Style — Monochrome Minimal
+ * Font: JetBrainsMono Nerd Font Bold
+ */
+
+@define-color mono-bg         #1a1a1a;
+@define-color mono-bg-light   #2a2a2a;
+@define-color mono-fg         #dcdcdc;
+@define-color mono-muted      #888888;
+@define-color mono-dark       #444444;
+@define-color mono-active     #ffffff;
+@define-color mono-urgent     #ff4444;
+@define-color mono-hover      #333333;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", FontAwesome, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Entire bar */
+window#waybar {
+    background-color: rgba(31, 31, 40, 0.3);
+    color: @mono-fg;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Hidden mode (e.g., auto-hide) */
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Generic button styling (workspaces, etc.) */
+button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 8px;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    margin: 0;
+    background-color: transparent;
+    color: @mono-muted;
+    border: none;
+    font-weight: 500;
+}
+
+#workspaces button:hover {
+    background-color: @mono-hover;
+    color: @mono-fg;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @mono-active;
+    background-color: transparent;
+    font-weight: 700;
+}
+
+#workspaces button.urgent {
+    background-color: @mono-urgent;
+    color: @mono-bg;
+    font-weight: 700;
+}
+
+#workspaces button.persistent {
+    color: @mono-dark;
+}
+
+#workspaces button.special {
+    color: @mono-muted;
+    font-style: italic;
+}
+
+#workspaces button.visible {
+    color: @mono-fg;
+}
+
+
+/* Uniform module styling */
+#clock,
+#battery,
+#network,
+#backlight,
+#pulseaudio,
+#tray,
+#workspaces {
+    padding: 0 10px;
+    background: transparent;
+    color: @mono-fg;
+}
+
+/* Hover feedback for interactivity */
+#pulseaudio:hover,
+#battery:hover,
+#network:hover,
+#backlight:hover,
+#clock:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Battery states */
+#battery.charging,
+#battery.plugged {
+    color: #00ff88;
+}
+
+#battery.critical:not(.charging) {
+    color: @mono-urgent;
+    animation: blink 1s steps(2) infinite alternate;
+}
+
+/* Disconnected network state */
+#network.disconnected {
+    color: @mono-urgent;
+}
+
+/* Muted audio */
+#pulseaudio.muted {
+    color: @mono-muted;
+}
+
+/* Tray icons */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @mono-urgent;
+}
+
+/* Blink animation for battery critical */
+@keyframes blink {
+    to {
+        color: @mono-active;
+    }
+}
