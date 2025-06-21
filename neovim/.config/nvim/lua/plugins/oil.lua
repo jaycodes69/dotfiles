@@ -24,5 +24,5 @@ return {
       ["<Esc><Esc>"] = "actions.close",
     },
   },
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = { "echasnovski/mini.icons" },
 }
