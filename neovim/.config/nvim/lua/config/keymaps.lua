@@ -27,6 +27,10 @@ map("n", "<leader>Q", ":qa!<CR>", opts)
 -- Oil (file manager)
 map("n", "-", "<CMD>Oil --float<CR>", opts)
 
+map("n", "<leader>ll", function ()
+    vim.diagnostic.open_float()
+end, opts)
+
 -- Quick terminal
 map("n", "<leader>t", ":terminal<CR>", opts)
 
