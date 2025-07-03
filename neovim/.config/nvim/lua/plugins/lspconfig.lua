@@ -1,15 +1,42 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+		-- Plugin manager for LSP servers
 		{ "williamboman/mason.nvim", opts = {} },
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		"saghen/blink.cmp",
+
+		-- Completion engine and dependencies
+		"hrsh7th/nvim-cmp",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-emoji",
+		"hrsh7th/cmp-cmdline",
+		"saadparwaiz1/cmp_luasnip",
+		{
+			"L3MON4D3/LuaSnip",
+			build = "make install_jsregexp",
+			dependencies = {
+				{
+					"rafamadriz/friendly-snippets",
+					config = function()
+						require("luasnip.loaders.from_vscode").lazy_load()
+					end,
+				},
+			},
+		},
 	},
 
 	config = function()
 		local lspconfig = require("lspconfig")
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
+		local cmp = require("cmp")
+		local luasnip = require("luasnip")
+
+		-- Enable better LSP completion support
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+		-- LSP servers with specific config
 		local servers = {
 			lua_ls = {
 				settings = {
@@ -22,8 +49,6 @@ return {
 							checkThirdParty = false,
 							library = {
 								vim.env.VIMRUNTIME,
-								"${3rd}/luv/library",
-								"${3rd}/busted/library",
 							},
 						},
 						completion = { callSnippet = "Replace" },
@@ -47,10 +72,11 @@ return {
 					clangdFileStatus = true,
 				},
 			},
-			marksman = {},
+			markdown_oxide = {}, -- Markdown LSP
+			hyprls = {},
 		}
 
-		-- 🛠️ Ensure tools are installed
+		-- Install LSP servers and formatters automatically
 		local tools = vim.tbl_keys(servers)
 		vim.list_extend(tools, { "stylua", "clang-format", "shfmt", "prettier" })
 
@@ -63,6 +89,7 @@ return {
 		require("mason-lspconfig").setup({
 			ensure_installed = vim.tbl_keys(servers),
 			automatic_enable = true,
+			automatic_installation = true,
 			handlers = {
 				function(server)
 					lspconfig[server].setup(vim.tbl_deep_extend("force", {
@@ -72,7 +99,7 @@ return {
 			},
 		})
 
-		-- 🔁 Autocommands and Keymaps
+		-- Set up LSP keymaps and features
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("LSPAttach", { clear = true }),
 			callback = function(event)
@@ -86,18 +113,18 @@ return {
 					vim.keymap.set("n", keys, func, { buffer = buf, desc = "LSP: " .. desc })
 				end
 
-				-- 🔑 Basic LSP mappings
+				-- Basic LSP navigation
 				map("gd", vim.lsp.buf.definition, "Go to Definition")
 				map("gr", vim.lsp.buf.references, "Find References")
 				map("K", vim.lsp.buf.hover, "Hover Info")
-				map("<leader>lrn", vim.lsp.buf.rename, "Rename Symbol")
+				map("<leader>lrn", vim.lsp.buf.rename, "Rename")
 				map("<leader>lca", vim.lsp.buf.code_action, "Code Action")
 				map("<leader>lcf", function()
 					vim.lsp.buf.format({ async = true })
 				end, "Format")
 
-				-- 📌 Document Highlighting
-				if client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+				-- Document highlight
+				if client.supports_method("textDocument/documentHighlight") then
 					local hl = vim.api.nvim_create_augroup("LspHighlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						group = hl,
@@ -111,8 +138,8 @@ return {
 					})
 				end
 
-				-- 🧠 Inlay Hints (Neovim ≥ 0.10)
-				if client:supports_method("textDocument/inlayHint") and vim.lsp.inlay_hint then
+				-- Inlay hints (requires Neovim >= 0.10)
+				if client.supports_method("textDocument/inlayHint") and vim.lsp.inlay_hint then
 					vim.lsp.inlay_hint.enable(true, { bufnr = buf })
 					vim.keymap.set("n", "<leader>lth", function()
 						local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = buf })
@@ -122,7 +149,7 @@ return {
 			end,
 		})
 
-		-- 🔍 Diagnostics UI
+		-- Diagnostic UI
 		vim.diagnostic.config({
 			update_in_insert = false,
 			severity_sort = true,
@@ -144,7 +171,7 @@ return {
 			},
 		})
 
-		-- 🧭 Diagnostic navigation
+		-- Diagnostic navigation
 		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.jump({ count = 1, float = true })
 		end, { desc = "Next Diagnostic" })
@@ -154,7 +181,7 @@ return {
 		vim.keymap.set("n", "<leader>ll", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 		vim.keymap.set("n", "<leader>lq", vim.diagnostic.setloclist, { desc = "Diagnostic List" })
 
-		-- ⚡ Performance tuning
+		-- Performance
 		vim.opt.updatetime = 250
 		vim.opt.pumheight = 10
 		vim.opt.completeopt = { "menu", "menuone", "noselect" }

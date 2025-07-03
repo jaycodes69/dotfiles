@@ -39,7 +39,7 @@ return {
 				typescript = { { "prettierd", "prettier" } },
 				json = { "jq" },
 				sh = { "shfmt" },
-				markdown = { "prettier" },
+				markdown = { "prettierd", "prettier" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
 				java = { "clang_format" },

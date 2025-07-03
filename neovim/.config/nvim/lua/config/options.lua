@@ -1,63 +1,84 @@
--- Sensible Neovim settings
+-- options.lua
 local opt = vim.opt
 
--- General
+-- 🔤 Encoding & Clipboard
 opt.encoding = "utf-8"
-opt.mouse = ""               -- Mouse disabled: touch typist mode
+opt.clipboard = "unnamedplus"
+
+-- 📁 File handling
 opt.swapfile = false
 opt.backup = false
 opt.undofile = true
-opt.clipboard = "unnamedplus"
+opt.undodir = vim.fn.stdpath("cache") .. "/undo"
 
--- UI
+-- 🖥 UI
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 opt.cursorline = true
 opt.signcolumn = "yes"
 opt.termguicolors = true
 opt.cmdheight = 1
-opt.laststatus = 3           -- Global statusline
-
--- Indentation
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-opt.smartindent = true
+opt.laststatus = 3
+opt.conceallevel = 2
 opt.wrap = false
+opt.scrolloff = 8
+opt.sidescrolloff = 8
 
--- Search
+-- 📏 Tabs & Indentation
+opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 0 -- use tabstop value (recommended) :contentReference[oaicite:1]{index=1}
+opt.smartindent = true
+
+-- 🔍 Search
 opt.ignorecase = true
 opt.smartcase = true
 opt.incsearch = true
 opt.hlsearch = false
 
--- Scrolling
-opt.scrolloff = 8
-opt.sidescrolloff = 8
+-- 🔧 Splits
+opt.splitright = true
+opt.splitbelow = true
 
--- Faster update
+-- ⚡ Performance
 opt.updatetime = 200
 opt.timeoutlen = 400
+opt.belloff = "all" -- disable system bells
+opt.shortmess:append("c") -- clean completion messages :contentReference[oaicite:3]{index=3}
 
+-- 📦 Better wildignore
+opt.wildignore = { "*.o", "*.obj", "*.pyc", "*/node_modules/*", "*/.git/*" }
+
+-- 🧠 Formatoptions control
+opt.formatoptions:remove({ "c", "r", "o" }) -- avoid auto comment continuation
+
+-- Neovide Settings
 if vim.g.neovide then
-  -- Font and size
-  vim.opt.guifont = "JetBrainsMono Nerd Font:h11" -- or replace with your font
-
-  -- Cursor settings: steady and smooth
-  vim.g.neovide_cursor_vfx_mode = ""
-  vim.g.neovide_cursor_trail_length = 0.1
-  vim.g.neovide_cursor_antialiasing = true
-
-  -- Remove any startup flash or shake
-  vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_refresh_rate = 60
-  vim.g.neovide_refresh_rate_idle = 5
-  vim.g.neovide_no_idle = false
-  vim.g.neovide_opacity = 0.8
-
-  -- Paste support
-  vim.g.neovide_input_use_logo = true -- Enable Cmd/Ctrl shortcuts
-  vim.keymap.set("v", "<D-c>", '"+y') -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
-  vim.keymap.set("i", "<D-v>", '<C-r>+') -- Paste insert mode
+	opt.guifont = "JetBrainsMono Nerd Font:h14"
+	vim.g.neovide_hide_mouse_when_typing = true
+	vim.g.neovide_refresh_rate = 60
+	vim.g.neovide_refresh_rate_idle = 5
+	vim.g.neovide_fullscreen = true
+	vim.g.neovide_no_idle = false
+	vim.g.neovide_opacity = 1.0
+	vim.keymap.set("v", "<D-c>", '"+y')
+	vim.keymap.set("n", "<D-v>", '"+P')
+	vim.keymap.set("i", "<D-v>", "<C-r>+")
 end
+
+-- Yank highlight
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
+	end,
+})
+
+-- Markdown & Note-taking auto settings
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown", "text", "tex" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+		vim.opt_local.conceallevel = 2
+	end,
+})
