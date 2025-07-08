@@ -58,3 +58,12 @@ map("n", "<leader><leader>", function()
 	vim.cmd("LspRestart")
 	vim.notify("Neovim reloaded!", vim.log.levels.INFO)
 end, vim.tbl_extend("force", opts, { desc = "Reload Neovim config" }))
+
+-- In ~/.config/nvim/lua/config/keymaps.lua or init.lua
+map("n", "<leader>nn", function()
+	require("brain").open_note()
+end, { desc = "Open or create note in /notes" })
+
+map("n", "<leader>na", function()
+	require("brain").autolink_to_index()
+end, { desc = "Auto-create linked notes in index.md" })

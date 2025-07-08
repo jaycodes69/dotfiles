@@ -113,22 +113,23 @@ return {
 		main = "ibl",
 		opts = {},
 	},
-
 	{
 		"folke/zen-mode.nvim",
 		lazy = true,
 		cmd = "ZenMode",
 		dependencies = {
-			"folke/twilight.nvim", -- dims inactive code (optional but great for focus)
+			"folke/twilight.nvim", -- dims inactive code
 		},
 		opts = {
+			-- How big the Zen window should be
 			window = {
-				backdrop = 0.95,
-				width = 0.8, -- 80% width of the editor
-				height = 1, -- full height
+				backdrop = 0.90, -- Darken the backdrop a bit more
+				width = 0.5,
+				height = 1.0, -- Always full height
 				options = {
 					number = false,
 					relativenumber = false,
+					wrap = true,
 					signcolumn = "no",
 					foldcolumn = "0",
 					list = false,
@@ -136,44 +137,70 @@ return {
 					cursorcolumn = false,
 				},
 			},
+
+			-- Plugins to enable/disable when ZenMode opens
 			plugins = {
 				options = {
-					enabled = true,
+					enabled = true, -- apply global Vim options
 					ruler = false,
 					showcmd = false,
-					laststatus = 0,
+					laststatus = 0, -- hide statusline
+					cmdheight = 1, -- shrink cmd height
 				},
-				twilight = { enabled = true }, -- dim inactive portions
-				gitsigns = { enabled = false }, -- disable git decorations
-				tmux = { enabled = false }, -- hide tmux status bar
+				twilight = { enabled = true }, -- require("twilight").setup() elsewhere
+				gitsigns = { enabled = false }, -- hide git signs
+				tmux = { enabled = false }, -- hide tmux statusbar
+				nvimtree = { enabled = false }, -- hide NvimTree sidebar
+				barbecue = { enabled = false }, -- hide nav breadcrumbs
 				todo = { enabled = true }, -- keep TODO highlights
 				kitty = { enabled = false },
 				alacritty = { enabled = false },
 				wezterm = { enabled = false },
 				neovide = {
 					enabled = true,
-					scale = 1.2,
+					scale = 1.15,
 					disable_animations = {
 						neovide_animation_length = 0,
-						neovide_cursor_animate_command_line = false,
 						neovide_scroll_animation_length = 0,
-						neovide_position_animation_length = 0,
 						neovide_cursor_animation_length = 0,
+						neovide_position_animation_length = 0,
 						neovide_cursor_vfx_mode = "",
 					},
 				},
 			},
-			on_open = function()
-				vim.cmd("set wrap linebreak")
+
+			-- Called when entering Zen
+			on_open = function(win)
+				-- Center the view
+				vim.cmd("set scrolloff=0")
+				-- Make sure wrap + linebreaks for prose
+				vim.opt.wrap = true
+				vim.opt.linebreak = true
+				-- Enable spell for writing
 				vim.opt.spell = true
+				-- Optionally disable LSP diagnostics popup
+				vim.diagnostic.enable(false)
 			end,
+
+			-- Called when leaving Zen
 			on_close = function()
-				vim.cmd("set nowrap nolinebreak")
+				-- Restore defaults
+				vim.cmd("set scrolloff=8")
+				vim.opt.wrap = false
+				vim.opt.linebreak = false
 				vim.opt.spell = false
+				-- Re-enable diagnostics
+				vim.diagnostic.enable()
 			end,
 		},
 		keys = {
-			{ "<leader>zz", "<cmd>ZenMode<cr>", desc = "Toggle Zen Mode" },
+			{
+				"<leader>zz",
+				function()
+					require("zen-mode").toggle()
+				end,
+				desc = "Toggle Zen Mode",
+			},
 		},
 	},
 }

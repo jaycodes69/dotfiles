@@ -4,6 +4,8 @@ local opt = vim.opt
 -- 🔤 Encoding & Clipboard
 opt.encoding = "utf-8"
 opt.clipboard = "unnamedplus"
+opt.foldlevel = 999
+opt.mouse = "a"
 
 -- 📁 File handling
 opt.swapfile = false
@@ -60,7 +62,8 @@ if vim.g.neovide then
 	vim.g.neovide_refresh_rate_idle = 5
 	vim.g.neovide_fullscreen = true
 	vim.g.neovide_no_idle = false
-	vim.g.neovide_opacity = 1.0
+	vim.g.neovide_opacity = 0.8
+	opt.mouse = "c"
 	vim.keymap.set("v", "<D-c>", '"+y')
 	vim.keymap.set("n", "<D-v>", '"+P')
 	vim.keymap.set("i", "<D-v>", "<C-r>+")

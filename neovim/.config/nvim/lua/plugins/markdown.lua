@@ -1,24 +1,26 @@
 return {
+	-- treesitter first
 	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		ft = "markdown",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-		---@module 'render-markdown'
-		---@type render.md.UserConfig
-		opts = {
-			-- Customize as needed
-			render = {
-				bullets = { "•", "◦", "▪" },
-				headings = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
-				conceal = {
-					enabled = true,
-					links = true,
-					math = true,
-					html = false,
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = { "OXY2DEV/markview.nvim" },
+		lazy = false,
+		priority = 50, -- Markview before other color plugins
+	},
+
+	-- optional standalone config if you want to fine-tune
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = false,
+		priority = 49,
+		config = function()
+			require("markview").setup({
+				markdown = {
+					headings = require("markview.presets").headings.simple,
+					tables = require("markview.presets").tables.double,
 				},
-			},
-		},
+			})
+
+			require("markview.extras.checkboxes").setup()
+		end,
 	},
 }
