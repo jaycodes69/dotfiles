@@ -1,1 +1,1 @@
-print("helloo")
+require("config.lazy")
