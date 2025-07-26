@@ -1,2 +1,14 @@
+configuration {
+    modi: "drun,run,window";
+    font: "JetBrainsMono Nerd Font 12";
+    show-icons: true;
+    icon-theme: "Papirus";
+    drun-display-format: "{name}";
+    matching: "fuzzy";
+    sort: true;
+    cycle: true;
+}
+
+//@theme "~/.config/rofi/gruvbox.rasi"
 
 @theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"
