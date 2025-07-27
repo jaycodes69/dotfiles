@@ -1,0 +1,55 @@
+jay/.config/zsh/history
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor swap/backup files
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Compiled stuff
+*.out
+*.o
+*.a
+*.so
+*.exe
+
+# Logs and dumps
+*.log
+*.pid
+*.seed
+*.backup
+*.bak
+
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Rust
+target/
+
+# CMake / Make
+build/
+
+# JetBrains / VSCode
+.idea/
+.vscode/
+
+# Ignore env files
+.env
+.env.*
+
+# Ignore system files
+*.ISO
+*.IMG
+*.zip
+*.tar.gz
+
+# Git submodule files (if you mess with .gitmodules)
+.gitmodules
