@@ -35,3 +35,35 @@ alias gl='git pull'
 # Fun
 alias please='sudo'
 alias fuck='sudo $(fc -ln -1)'
+alias chx='chmod +x'
+
+
+
+alias t='tmux new-session -A -s main'
+
+alias tn='tmux new-session -s'     
+
+alias tl='tmux ls'
+
+alias ta='tmux attach-session -t $(tmux ls | fzf | cut -d: -f1)'
+
+alias tks='tmux kill-session -t $(tmux ls | fzf | cut -d: -f1)'
+
+alias tf='tmux kill-server'
+
+# Rename current session
+alias tr='tmux rename-session'
+
+# Save tmux layout (via resurrect if enabled)
+alias tsave='tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/save.sh'
+
+# Restore layout (if resurrect is used)
+alias tres='tmux run-shell ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh'
+
+
+alias ya='yay'
+alias ys='yay -S'         # install
+alias yr='yay -Rns'       # remove
+alias yu='yay -Syu'       # update system
+alias ycl='yay -Sc'       # clean cache
+alias yorph='yay -Rns $(pacman -Qtdq)'  # remove orphans
