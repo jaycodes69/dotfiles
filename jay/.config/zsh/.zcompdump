@@ -631,6 +631,7 @@ _comps=(
 'isag' '_sysstat'
 'ispell' '_ispell'
 'iwconfig' '_iwconfig'
+'j' '__zoxide_z_complete'
 'jadetex' '_tex'
 'jar' '_java'
 'jarsigner' '_java'

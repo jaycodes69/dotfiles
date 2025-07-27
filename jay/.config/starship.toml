@@ -1,190 +1,93 @@
-[aws]
-symbol = "  "
 
-[buf]
-symbol = " "
+# General config
+add_newline = false
+format = """
+$directory$git_branch$git_status$nodejs$rust$python$lua$docker_context$package$conda$memory_usage
+$character
+"""
 
-[bun]
-symbol = " "
+# Prompt character
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold blue)"
+vimcmd_replace_one_symbol = "[❮](bold purple)"
+vimcmd_replace_symbol = "[❮](bold purple)"
+vimcmd_visual_symbol = "[❮](bold yellow)"
 
-[c]
-symbol = " "
-
-[cpp]
-symbol = " "
-
-[cmake]
-symbol = " "
-
-[conda]
-symbol = " "
-
-[crystal]
-symbol = " "
-
-[dart]
-symbol = " "
-
-[deno]
-symbol = " "
-
+# Directory
 [directory]
+truncation_length = 3
 read_only = " 󰌾"
+style = "blue"
 
-[docker_context]
-symbol = " "
-
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
-[fennel]
-symbol = " "
-
-[fossil_branch]
-symbol = " "
-
-[gcloud]
-symbol = "  "
-
+# Git
 [git_branch]
 symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "purple"
 
 [git_commit]
-tag_symbol = '  '
+tag_symbol = "  "
 
-[golang]
-symbol = " "
-
-[guix_shell]
-symbol = " "
-
-[haskell]
-symbol = " "
-
-[haxe]
-symbol = " "
-
-[hg_branch]
-symbol = " "
-
-[hostname]
-ssh_symbol = " "
-
-[java]
-symbol = " "
-
-[julia]
-symbol = " "
-
-[kotlin]
-symbol = " "
-
-[lua]
-symbol = " "
-
-[memory_usage]
-symbol = "󰍛 "
-
-[meson]
-symbol = "󰔷 "
-
-[nim]
-symbol = "󰆥 "
-
-[nix_shell]
-symbol = " "
-
+# Languages (minimal)
 [nodejs]
 symbol = " "
-
-[ocaml]
-symbol = " "
-
-[os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CachyOS = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-Nobara = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
-RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
-
-[package]
-symbol = "󰏗 "
-
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
-
-[pijul_channel]
-symbol = " "
-
-[pixi]
-symbol = "󰏗 "
-
-[python]
-symbol = " "
-
-[rlang]
-symbol = "󰟔 "
-
-[ruby]
-symbol = " "
+style = "green"
 
 [rust]
 symbol = "󱘗 "
+style = "red"
 
-[scala]
-symbol = " "
+[python]
+symbol = " "
+style = "yellow"
 
-[swift]
-symbol = " "
+[lua]
+symbol = " "
+style = "blue"
 
-[zig]
-symbol = " "
+# Docker
+[docker_context]
+symbol = " "
+style = "cyan"
 
-[gradle]
-symbol = " "
+# Package version
+[package]
+symbol = "󰏗 "
+style = "bold blue"
+
+# Conda
+[conda]
+symbol = " "
+style = "green"
+
+# Memory usage
+[memory_usage]
+symbol = "󰍛 "
+threshold = 70
+style = "bold dimmed white"
+
+# Hostname (optional)
+[hostname]
+ssh_symbol = " "
+style = "dimmed white"
+
+# OS symbols (Linux-focused, trimmed)
+[os.symbols]
+Arch = " "
+Debian = " "
+EndeavourOS = " "
+Fedora = " "
+Garuda = "󰛓 "
+Gentoo = " "
+Kali = " "
+Manjaro = " "
+Mint = " "
+NixOS = " "
+Ubuntu = " "
+Void = " "
+Windows = "󰍲 "
+Unknown = " "
